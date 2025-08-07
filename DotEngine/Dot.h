@@ -18,7 +18,6 @@ public:
 
 	void Update(float dt, std::vector<Dot*> nearbyDots);
 	void Render(DotRenderer* aRenderer, float dt);
-	void TakeDamage(int someDamage);
 	void Reset(glm::vec2 newPosition, float newRadius, int newHealth);
 
 	glm::vec2 Position;
