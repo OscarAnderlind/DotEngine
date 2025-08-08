@@ -13,7 +13,7 @@ const int DotStartingHealth = 3;
 
 const float DotSeparationStrenght = 5;
 const float DotAlignmentStrenght = 15;
-const float DotCohesionStrenght = 1;
+const float DotCohesionStrenght = 3;
 
 const float DotSeparationContext = 20;
 const float DotAlignmentContext = 50;
