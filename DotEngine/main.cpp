@@ -85,7 +85,7 @@ int main(int argc, char* args[])
 
 
 		// - FPS COUNTER -
-		std::string fpsText = "FPS: " + std::to_string(static_cast<int>(fps));
+		std::string fpsText = "FPS: " + std::to_string(static_cast<int>(fps)) + " Dots: " + std::to_string(DotAmount);
 		SDL_Surface* textSurface = TTF_RenderText_Solid(font, fpsText.c_str(), 0, { 255, 255, 255, 255 }); 
 		if (textSurface != nullptr)
 		{

@@ -7,23 +7,20 @@ QuadTree::QuadTree(glm::vec2 newPosition, glm::vec2 newSize, DotRenderer* newRen
 	size = newSize;
 	renderer = newRenderer;
 
-	//DebugDraw(position, size, renderer);
 }
 
 void QuadTree::DebugDraw(glm::vec2 position, glm::vec2 size, DotRenderer* renderer)
 {
 	renderer->SetDrawColor(255, 255, 255, 255);
 
-	for (int i = 0; i < size.x; i++)
+	for (int i = -size.x/2; i < size.x/2; i++)
 	{
-		renderer->DrawPoint(position.x - (size.x / 2) + i, position.y + (size.y / 2) - 1);
-		renderer->DrawPoint(position.x - (size.x / 2) + i, position.y - (size.y / 2));
+		renderer->DrawPoint(position.x + i, position.y);
 	}
 
-	for (int i = 0; i < size.y; i++)
+	for (int i = -size.y/2; i < size.y/2; i++)
 	{
-		renderer->DrawPoint(position.x + (size.x / 2) -1 , position.y - (size.y / 2) + i); 
-		renderer->DrawPoint(position.x - (size.x / 2)	 , position.y - (size.y / 2) + i);
+		renderer->DrawPoint(position.x, position.y + i);
 	}
 }
 
@@ -106,6 +103,9 @@ void QuadTree::Query(glm::vec2 comparePos, glm::vec2 compareSize, std::vector<Do
 }
 void QuadTree::Subdivide()
 {
+
+	//DebugDraw(position, size, renderer);
+
 	neQuad = new QuadTree(glm::vec2(position.x + size.x / 4, position.y + size.y / 4), glm::vec2(size.x / 2, size.y / 2), renderer);
 	nwQuad = new QuadTree(glm::vec2(position.x - size.x / 4, position.y + size.y / 4), glm::vec2(size.x / 2, size.y / 2), renderer);
 	seQuad = new QuadTree(glm::vec2(position.x + size.x / 4, position.y - size.y / 4), glm::vec2(size.x / 2, size.y / 2), renderer);

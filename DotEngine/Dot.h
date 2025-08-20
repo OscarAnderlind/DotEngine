@@ -18,6 +18,7 @@ public:
 
 	void Update(float dt, std::vector<Dot*> nearbyDots);
 	void Render(DotRenderer* aRenderer, float dt);
+	void RenderThreaded(DotRenderer* aRenderer, float dt, uint32_t* pixelBuffer);
 	void Reset(glm::vec2 newPosition, float newRadius, int newHealth);
 
 	glm::vec2 Position;

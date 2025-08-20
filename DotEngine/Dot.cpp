@@ -5,7 +5,7 @@
 #include <glm/gtc/constants.hpp>
 
 const float DotVelocity = 50.0f;
-
+const SDL_PixelFormatDetails* pixelFormatDetails = SDL_GetPixelFormatDetails(SDL_PIXELFORMAT_RGBA32);
 
 Dot::Dot(glm::vec2 aPosition, float aRadius, float health)
 {
@@ -126,9 +126,25 @@ void Dot::Render(DotRenderer* aRenderer, float dt)
 	float blueColor = (glm::cos(TotalTime * 0.4f) * 0.5f + 0.5f) * 255.0f;
 
 	aRenderer->SetDrawColor(redColor, greenColor, blueColor, 255);
-
 	aRenderer->DrawFilledCircle(Position.x, Position.y, Radius);
+}
 
+void Dot::RenderThreaded(DotRenderer* aRenderer, float dt, uint32_t* pixelBuffer)
+{
+	TotalTime += dt;
+
+	float redColor = (glm::cos((TotalTime + Velocity.x * 100) * 0.1f) * 0.5f + 0.5f) * 255.0f;
+
+	float greenColor = (glm::cos((TotalTime + Velocity.y * 100) * 0.9f) * 0.5f + 0.5f) * 255.0f;
+
+	float blueColor = (glm::cos(TotalTime * 0.4f) * 0.5f + 0.5f) * 255.0f;
+
+	Uint32 colour = SDL_MapRGBA(pixelFormatDetails, NULL, redColor, greenColor, blueColor, 255.f);
+
+	int xPixel = static_cast<int>(Position.x);
+	int yPixel = static_cast<int>(Position.y);
+
+	aRenderer->DrawThreadedFilledCircle(Position.x, Position.y, Radius, colour);
 }
 
 void Dot::Reset(glm::vec2 newPosition, float newRadius, int newHealth)
@@ -137,6 +153,3 @@ void Dot::Reset(glm::vec2 newPosition, float newRadius, int newHealth)
 	Position.y = newPosition.y;
 	Radius = newRadius;
 }
-
-
-
